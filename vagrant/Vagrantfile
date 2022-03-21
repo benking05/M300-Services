@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
 
   # Fileserver
   config.vm.define "ubuntuserver" do |fileserver|
-    fileserver.vm.hostname = "LL-Fileserver"
+    fileserver.vm.hostname = "LB2-Fileserver"
     fileserver.vm.box = "ubuntu/xenial64"
     
     # Network Configs
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     # VM Configs
     fileserver.vm.provider "virtualbox" do |vb|
       vb.gui = false
-      vb.name = "LL-Fileserver"
+      vb.name = "LB2-Fileserver"
 
       # VM Specs
       vb.memory = "2048"
