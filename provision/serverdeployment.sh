@@ -10,3 +10,7 @@ sudo systemctl disable nmbd.service
 
 echo "---STOPPING SMBD---"
 sudo systemctl stop smbd.service
+
+echo "---MOVING SMB.CONF---"
+sudo mv /etc/samba/smb.conf /etc/samba/smb.conf.orig
+sudo cp /vagrant/provision/smb.conf /etc/samba/smb.conf
