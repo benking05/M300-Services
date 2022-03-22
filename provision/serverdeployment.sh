@@ -31,7 +31,7 @@ sudo chmod 2770 /samba/lb-user/
 sudo chmod 777 /samba/public/
 
 echo "---ADDING SMB USER---"
-echo -ne "testenv\ntestenv\n" |smbpasswd -a -s lb-user
+echo -ne "password\npassword\n" |smbpasswd -a -s lb-user
 sudo smbpasswd -e lb-user
 
 echo "---STARTING SMBD---"
