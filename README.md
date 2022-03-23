@@ -3,11 +3,21 @@
 ## Inhaltsverzeichnis
 
 - [Einleitung](#einleitung)
+    - [Voraussetzungen](#voraussetzungen)
 - [Wie sieht die Umgebung aus?](#wie-sieht-die-umgebung-aus)
 	- [Shares](#shares)
-	- [Thema 2](#thema2)
-	- [Thema 3](#thema3)	
-- [Schluß](#schluss)
+- [Umgebung steuern](#umgebung-steuern)
+    - [Hochfahren](#hochfahren)
+    - [Herunterfahren](#herunterfahren)
+    - [Umgebung löschen](#umgebung-löschen)
+    - [Befehl-Tabelle Vagrant](#befehl-tabelle-vagrant)
+- [Via SSH auf die VMs zugreifen](#via-ssh-auf-die-vms-zugreifen)
+- [Benutzernamen und Passwörter](#benutzernamen-und-passwörter)
+    - [SSH](#ssh)
+    - [Samba](#samba)
+- [Zugreifen auf den privaten Share](#zugreifen-auf-den-privaten-share)
+- [Exit](#exit)
+- [Quellen](#quellen)
 
 ---
 
@@ -16,6 +26,7 @@
 
 In dieser LB2 vom Modul 300 (Plattformübergreifende Dienste in ein Netzwerk integrieren) schauen wir Vagrant an. Die Dokumentation schreiben wir mit Markdown. Das Ziel der LB2 ist es, anhand von Vagrant, eine Service Funktion mit mehreren VMs oder Services aufzusetzen. In unserem Fall haben wir zwei VMs aufgesetzt. Eine Servermaschine für den SMB Fileserver und einen Client, der darauf zugreifen kann. Der Dienst ermöglicht Geräten, innerhalb eines Netzwerkes, auf geteilte Dateien zuzugreifen und Berechtigungen über Ordner/Dateien zu kontrollieren.
 
+<a name="voraussetzungen"></a>
 >### Voraussetzungen
 - Die neuste Version von Virtualbox muss installiert sein
 - Auf Virtualbox dürfen keine VMs vorhanden sein, die entweder "LB-Fileserver" oder "LB-Client" heissen
@@ -42,21 +53,26 @@ auf diesen Share kann jeder zugreifen. Hier wird kein Account benötigt und jede
 
 ---
 
-## Umgebung hochstarten, herunterfahren, ...
+<a name="umgebung-steuern"></a>
+## Umgebung steuern
 
+<a name="hochfahren"></a>
 ### Hochfahren:
 
 Um die Umgebung hoch zufahren, muss man im Terminal im **gleichen Ordner wie das Vagrantfile** sein und **vagrant up** eingeben. Dies dauert eine Weile, da es die Nötigen Daten herunterladet und die VMs erstellt und konfiguriert.
 
+<a name="herunterfahren"></a>
 ### Herunterfahren:
 
 Wenn man nun die Umgebung herunterfahren möchte, muss man im Terminal im **gleichen Ordner wie das Vagrantfile** sein und **vagrant halt** eingeben.
 
+<a name="umgebung-löschen"></a>
 ### Umgebung vom Gerät löschen:
 
 Um die Umgebung vom Gerät nun zu löschen, muss man im Terminal im **gleichen Ordner wie das Vagrantfile** sein und den Befehl **vagrant destroy** eingeben. 
 > **NOTE:** Man muss bei den Maschinen die beide Male **"y"** eingeben, um zu bestätigen, dass man die VMs auch wirklich löschen will.
 
+<a name="befehl-tabelle-vagrant"></a>
 ### Befehl-Tabelle Vagrant:
 
 |Befehl    |Command (im Terminal)                    |
@@ -64,7 +80,8 @@ Um die Umgebung vom Gerät nun zu löschen, muss man im Terminal im **gleichen O
 |hochfahren / erstellen   |`vagrant up`              |
 |herunterfahren           |`vagrant halt`            |
 |löschen                  |`vagrant destroy`         |
- 
+
+<a name="via-ssh-auf-die-vms-zugreifen"></a> 
 ## Via SSH auf die VMs zugreifen:
 
 Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleichen Ordner wie das Vagrantfile** sein und den Befehl **vagrant ssh "Maschine"** eingeben.
@@ -74,20 +91,24 @@ Um auf die einzelnen VMs zuzugreifen, muss man lediglich im Terminal im **gleich
 |Fileserver       |`vagrant ssh ubuntuserver`         |
 |Client           |`vagrant ssh ubuntuclient`         |
 
-## Benutzernamen & Passwörter
+<a name="benutzernamen-und-passwoerter"></a>
+## Benutzernamen und Passwörter
 
+<a name="ssh"></a>
 ### SSH
 
-Auf dem LB-Fileserver sowie auf dem Ubuntuclient sind die SSH User Vagrant.
+Auf dem LB-Fileserver sowie auf dem LB-Client sind die SSH User Vagrant.
 - Benutzername: vagrant
 - Passwort: vagrant
 
+<a name="samba"></a>
 ### SAMBA
 
 Um auf den privaten Samba Share zugreifen zu können, braucht es einen privaten Benutzer: "lb-user"
 - Benutzername: lb-user
 - Passwort: password 
 
+<a name="zugreifen-auf-den-privaten-share"></a>
 ## Zugreifen auf den privaten Share
 
 Zugreifen auf den Samba Share via Ubuntuclient Terminal:
@@ -98,6 +119,10 @@ Zugreifen auf den Samba Share via Ubuntuclient Terminal:
 |public Share     |`smbclient //192.168.10.5/public`                        |
 |Allgemein        |`smbclient //*IP Adresse*/*Ordner* -U *Benutzername*`    |
 
+## Ordner und Dateien
+Wenn wir Zugriff auf die Shares haben, können wir nun darauf Dateien und Ordner erstellen.
+
+<a name="exit"></a>
 ## Exit
 
 ### Aus Sambashare
@@ -109,3 +134,9 @@ Um den Share zu verlassen, in welchen man sich eingeloggt hat, muss man nur eine
 
 Um die SSH Verbindung (im Terminal von z.B. Visual Studio Code,...) zu trennen, muss man lediglich einen Befehl eingeben:
 > exit
+
+<a name="quellen"></a>
+## Quellen
+[Samba installation](https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!)
+
+[Markdown Syntax](https://www.markdownguide.org/basic-syntax/)
