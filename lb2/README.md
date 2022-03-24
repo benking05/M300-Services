@@ -40,6 +40,19 @@ In dieser LB2 vom Modul 300 (Plattformübergreifende Dienste in ein Netzwerk int
 
 Die Umgebung beinhaltet einen Fileserver, welcher zwei SMB Shares im ganzen beinhaltet. Ebenfalls gibt es einen Client, mit welchen man auf die Shares zugreifen kann.
 
+### Spezifikationen
+- **Localhost:**
+    - Provider: VirtualBox 6.1
+    - Networt for VMs: Private Network
+- **Client:**
+    - OS: ubuntu/xenial64
+    - RAM: 4096MB
+    - CPU Cores: 4
+- **Server:**
+    - OS: ubuntu/xenial64
+    - RAM: 2048MB
+    - CPU Cores: 2
+
 ![M300-Banner](lb2-env.png)
 
 <a name="shares"></a>
@@ -120,7 +133,47 @@ Zugreifen auf den Samba Share via Ubuntuclient Terminal:
 |Allgemein        |`smbclient //*IP Adresse*/*Ordner* -U *Benutzername*`    |
 
 ## Ordner erstellen und anzeigen
-Wenn wir Zugriff auf die Shares haben, können wir nun darauf Dateien und Ordner erstellen.
+Wenn wir Zugriff auf die Shares haben, können wir nun darauf Ordner erstellen.
+
+|Ziel    |Command (im Terminal)                                    |
+|-----------------|---------------------------------------------------------|
+|Ordner erstellen               |`mkdir "Ordnername"`              |
+|Objekte im Ordner anzeigen     |`ls`                              |
+
+## Code
+---
+### Vagrant
+
+Hier startet die Konfiguration der VMs.
+
+>Vagrant.configure("2") do |config|
+
+Wir definieren nun den Namen, um mit SSH zuzugreifen, den Hostnamen und das OS.
+
+>config.vm.define "ubuntuserver" do |fileserver|
+
+>fileserver.vm.hostname = "ubuntuserver"
+
+>fileserver.vm.box = "ubuntu/xenial64
+
+Nun erstellen wir das Netzwerk und vergeben die IP-Adresse.
+>fileserver.vm.network "private_network", ip: "192.168.10.5"
+
+Wir geben den Provider an, welcher Name beim Provider dargestellt wird und ob die VM ein GUI hat.
+>fileserver.vm.provider "virtualbox" do |vb|
+
+>vb.gui = false
+
+>vb.name = "LB-Fileserver"
+
+Hier sind die Spezifikationen.
+>vb.memory = "2048"
+>vb.cpus = "2"
+
+Wir verlinken auf das File, welches die Installationen in der VM macht.
+>fileserver.vm.provision "shell", path: "provision/serverdeployment.sh"
+
+---
 
 <a name="exit"></a>
 ## Exit
