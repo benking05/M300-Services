@@ -16,6 +16,7 @@
     - [SSH](#ssh)
     - [Samba](#samba)
 - [Zugreifen auf den privaten Share](#zugreifen-auf-den-privaten-share)
+- [Ordner erstellen und anzeigen](#ordner-erstellen-und-anzeigen)
 - [Code](#code)
 - [Exit](#exit)
 - [Quellen](#quellen)
@@ -133,6 +134,7 @@ Zugreifen auf den Samba Share via Ubuntuclient Terminal:
 |public Share     |`smbclient //192.168.10.5/public`                        |
 |Allgemein        |`smbclient //*IP Adresse*/*Ordner* -U *Benutzername*`    |
 
+<a name="ordner-erstellen-und-anzeigen"></a>
 ## Ordner erstellen und anzeigen
 Wenn wir Zugriff auf die Shares haben, können wir nun darauf Ordner erstellen.
 
