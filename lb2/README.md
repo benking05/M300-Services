@@ -119,7 +119,7 @@ Zugreifen auf den Samba Share via Ubuntuclient Terminal:
 |public Share     |`smbclient //192.168.10.5/public`                        |
 |Allgemein        |`smbclient //*IP Adresse*/*Ordner* -U *Benutzername*`    |
 
-## Ordner und Dateien
+## Ordner erstellen und anzeigen
 Wenn wir Zugriff auf die Shares haben, können wir nun darauf Dateien und Ordner erstellen.
 
 <a name="exit"></a>
